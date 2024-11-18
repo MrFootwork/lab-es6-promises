@@ -77,7 +77,8 @@ obtainInstruction('steak', 0)
   })
   .then( (step7) => {
     document.querySelector("#steak").innerHTML += `<li>${step7}</li>`
-    // throw new Error('NO')
+    document.querySelector('#steak').innerHTML += `<li>Steak is ready!</li>`;
+    document.querySelector('#steakImg').removeAttribute('hidden');
   })
   .catch(err => console.error('no steak? 🥩', err))
 
@@ -102,7 +103,9 @@ async function makeBroccoli() {
   } catch (error) {
     console.error('no broccoli? 🥦', err)
   } finally {
-    document.querySelector('#broccoliImg').hidden = false
+    // document.querySelector('#broccoliImg').hidden = false
+    document.querySelector('#broccoliImg').removeAttribute('hidden');
+
   }
 }
 
@@ -111,32 +114,21 @@ makeBroccoli()
 
 
 // Bonus 2 - Promise all
-async function makeBrusselsSrouts() {
-	const sprouts = Promise.all([
-		obtainInstruction('brusselsSprouts', 0),
-		obtainInstruction('brusselsSprouts', 1),
-		obtainInstruction('brusselsSprouts', 2),
-		obtainInstruction('brusselsSprouts', 3),
-		obtainInstruction('brusselsSprouts', 4),
-		obtainInstruction('brusselsSprouts', 5),
-		obtainInstruction('brusselsSprouts', 6),
-		obtainInstruction('brusselsSprouts', 7),
-		obtainInstruction('brusselsSprouts', 8),
-	]);
+ Promise.all([
+	obtainInstruction('brusselsSprouts', 0),
+	obtainInstruction('brusselsSprouts', 1),
+	obtainInstruction('brusselsSprouts', 2),
+	obtainInstruction('brusselsSprouts', 3),
+	obtainInstruction('brusselsSprouts', 4),
+	obtainInstruction('brusselsSprouts', 5),
+	obtainInstruction('brusselsSprouts', 6),
+	obtainInstruction('brusselsSprouts', 7),
+]).then((steps) => {
+  steps.forEach((step) => {
+    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step}</li>`;
+  });
 
-  if (sprouts) {
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step1}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step2}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step3}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step4}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step5}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step6}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step7}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step7}</li>`
-    document.querySelector("#brusselsSprouts").innerHTML += `<li>${step7}</li>`
-  }
+  document.querySelector("#brusselsSprouts").innerHTML += `<li>Brussels sprouts are ready!</li>`;
+  document.querySelector("#brusselsSproutsImg").removeAttribute("hidden");
+}).catch((error) => console.error(error));
 
-	return sprouts;
-}
-const sprouts = makeBrusselsSrouts();
-console.log(`🚀 ~ sprouts:`, sprouts);
